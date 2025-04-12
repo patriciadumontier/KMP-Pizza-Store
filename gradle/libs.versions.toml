@@ -7,11 +7,14 @@ androidx-activityCompose = "1.10.1"
 androidx-lifecycle = "2.8.4"
 compose-multiplatform = "1.7.3"
 config = "1.4.3"
+exposed = "0.41.1"
 kotlin = "2.1.20"
 kotlinx-coroutines = "1.10.2"
 ktor = "3.1.2"
 koin = "3.4.0"
 logback = "1.5.18"
+postgresql = "42.6.0"
+zaxxer = "5.0.1"
 
 [libraries]
 config = { module = "com.typesafe:config", version.ref = "config" }
@@ -21,6 +24,8 @@ androidx-compose-ui-tooling-preview = { module = "androidx.compose.ui:ui-tooling
 androidx-activity-compose = { module = "androidx.activity:activity-compose", version.ref = "androidx-activityCompose" }
 androidx-lifecycle-viewmodel = { group = "org.jetbrains.androidx.lifecycle", name = "lifecycle-viewmodel", version.ref = "androidx-lifecycle" }
 androidx-lifecycle-runtime-compose = { group = "org.jetbrains.androidx.lifecycle", name = "lifecycle-runtime-compose", version.ref = "androidx-lifecycle" }
+jetbrains-exposed-core = { group = "org.jetbrains.exposed", name = "exposed-core", version.ref = "exposed" }
+jetbrains-exposed-jdbc = { group = "org.jetbrains.exposed", name = "exposed-jdbc", version.ref = "exposed" }
 kotlinx-coroutines-swing = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-swing", version.ref = "kotlinx-coroutines" }
 kotlinx-serialization-json = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version = "1.8.1" }
 ktor-client-cio = { module = "io.ktor:ktor-client-cio", version.ref = "ktor" }
@@ -35,6 +40,8 @@ ktor-server-content-negotiation = { module = "io.ktor:ktor-server-content-negoti
 koin-ktor = { module = "io.insert-koin:koin-ktor", version.ref = "koin" }
 koin-logger-slf4j = { module = "io.insert-koin:koin-logger-slf4j", version.ref = "koin" }
 logback = { module = "ch.qos.logback:logback-classic", version.ref = "logback" }
+postgresql = { module = "org.postgresql:postgresql", version.ref = "postgresql" }
+zaxxer-hikaricpl = { module = "com.zaxxer:HikariCP", version.ref = "zaxxer" }
 
 [plugins]
 androidApplication = { id = "com.android.application", version.ref = "agp" }

@@ -21,6 +21,10 @@ dependencies {
     implementation(libs.ktor.server.host.common)
     implementation(libs.ktor.serialization.kotlinx.json)
     implementation(libs.ktor.server.content.negotiation)
+    implementation(libs.postgresql)
+    implementation(libs.jetbrains.exposed.core)
+    implementation(libs.jetbrains.exposed.jdbc)
+    implementation(libs.zaxxer.hikaricpl)
     implementation(libs.koin.ktor)
     implementation(libs.koin.logger.slf4j)
 
