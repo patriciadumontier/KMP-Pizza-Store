@@ -5,10 +5,10 @@ import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 import org.jetbrains.kotlin.gradle.targets.js.webpack.KotlinWebpackConfig
 
 plugins {
+    alias(libs.plugins.composeCompiler)
     alias(libs.plugins.kotlinMultiplatform)
     alias(libs.plugins.androidApplication)
     alias(libs.plugins.composeMultiplatform)
-    alias(libs.plugins.composeCompiler)
     alias(libs.plugins.pluginSerialization)
 }
 
@@ -19,17 +19,10 @@ kotlin {
             jvmTarget.set(JvmTarget.JVM_11)
         }
     }
-    
-    listOf(
-        iosX64(),
-        iosArm64(),
-        iosSimulatorArm64()
-    ).forEach { iosTarget ->
-        iosTarget.binaries.framework {
-            baseName = "ComposeApp"
-            isStatic = true
-        }
-    }
+
+    iosX64()
+    iosArm64()
+    iosSimulatorArm64()
     
     jvm("desktop")
     
@@ -54,37 +47,56 @@ kotlin {
     }
     
     sourceSets {
-        val desktopMain by getting
-        
-        androidMain.dependencies {
-            implementation(compose.preview)
-            implementation(libs.androidx.activity.compose)
+//        androidMain.dependencies {
+//            implementation(compose.preview)
+//            implementation(libs.androidx.activity.compose)
+//        }
+        val commonMain by getting {
+            dependencies {
+                implementation(compose.runtime)
+                implementation(compose.foundation)
+                implementation(compose.material)
+                implementation(compose.ui)
+                implementation(compose.components.resources)
+                implementation(compose.components.uiToolingPreview)
+                implementation(libs.androidx.lifecycle.viewmodel)
+                implementation(libs.androidx.lifecycle.runtime.compose)
+
+                implementation(libs.ktor.client.core)
+                implementation(libs.ktor.client.content.negotiation)
+                implementation(libs.ktor.serialization.kotlinx.json)
+
+                implementation(projects.shared)
+            }
         }
-        commonMain.dependencies {
-            implementation(compose.runtime)
-            implementation(compose.foundation)
-            implementation(compose.material)
-            implementation(compose.ui)
-            implementation(compose.components.resources)
-            implementation(compose.components.uiToolingPreview)
-            implementation(libs.androidx.lifecycle.viewmodel)
-            implementation(libs.androidx.lifecycle.runtime.compose)
+        val desktopMain by getting {
+                dependencies {
+                    implementation(compose.desktop.currentOs)
+                    implementation(libs.kotlinx.coroutines.swing)
 
-            implementation(libs.ktor.client.core)
-            implementation(libs.ktor.client.content.negotiation)
-            implementation(libs.ktor.serialization.kotlinx.json)
-
-            implementation(projects.shared)
+                    // Ktor dependencies for the desktop target:
+                    implementation(libs.ktor.client.core)
+                    implementation(libs.ktor.client.cio)
+                    implementation(libs.ktor.client.content.negotiation)
+                    implementation(libs.ktor.serialization.kotlinx.json)
+                }
+            }
+        val iosMain by creating {
+            dependsOn(commonMain)
+            dependencies {
+                implementation(libs.ktor.client.darwin)
+            }
         }
-        desktopMain.dependencies {
-            implementation(compose.desktop.currentOs)
-            implementation(libs.kotlinx.coroutines.swing)
+        getByName("iosX64Main").dependsOn(iosMain)
+        getByName("iosArm64Main").dependsOn(iosMain)
+        getByName("iosSimulatorArm64Main").dependsOn(iosMain)
+    }
 
-            // Ktor dependencies for the desktop target:
-            implementation(libs.ktor.client.core)
-            implementation(libs.ktor.client.cio)
-            implementation(libs.ktor.client.content.negotiation)
-            implementation(libs.ktor.serialization.kotlinx.json)
+    // Configure framework binary for your iOS targets:
+    targets.withType<org.jetbrains.kotlin.gradle.plugin.mpp.KotlinNativeTarget>().forEach { target ->
+        target.binaries.framework {
+            baseName = "ComposeApp" // Change to your preferred framework name.
+            // Optionally configure debug/release settings if needed.
         }
     }
 }

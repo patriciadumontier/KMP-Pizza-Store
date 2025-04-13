@@ -1,62 +1,57 @@
-import org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi
 import org.jetbrains.kotlin.gradle.ExperimentalWasmDsl
-import org.jetbrains.kotlin.gradle.dsl.JvmTarget
-import org.jetbrains.kotlin.gradle.targets.js.webpack.KotlinWebpackConfig
 
 plugins {
     alias(libs.plugins.kotlinMultiplatform)
     alias(libs.plugins.pluginSerialization)
-    alias(libs.plugins.androidLibrary)
 }
 
 kotlin {
-    androidTarget {
-        @OptIn(ExperimentalKotlinGradlePluginApi::class)
-        compilerOptions {
-            jvmTarget.set(JvmTarget.JVM_11)
-        }
-    }
-    
+    jvm()
+
     iosX64()
     iosArm64()
     iosSimulatorArm64()
-    
-    jvm()
-    
+
     @OptIn(ExperimentalWasmDsl::class)
     wasmJs {
         browser {
-            val rootDirPath = project.rootDir.path
-            val projectDirPath = project.projectDir.path
             commonWebpackConfig {
-                devServer = (devServer ?: KotlinWebpackConfig.DevServer()).apply {
-                    static = (static ?: mutableListOf()).apply {
-                        // Serve sources to debug inside browser
-                        add(rootDirPath)
-                        add(projectDirPath)
-                    }
-                }
+                outputFileName = "composeApp.js"
+                // Additional configuration if needed
             }
         }
+        binaries.executable()
     }
-    
-    sourceSets {
-        commonMain.dependencies {
-            implementation(libs.ktor.client.core)
-            implementation(libs.ktor.client.content.negotiation)
-            implementation(libs.ktor.serialization.kotlinx.json)
-        }
-    }
-}
 
-android {
-    namespace = "org.example.project.shared"
-    compileSdk = libs.versions.android.compileSdk.get().toInt()
-    compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_11
-        targetCompatibility = JavaVersion.VERSION_11
-    }
-    defaultConfig {
-        minSdk = libs.versions.android.minSdk.get().toInt()
+    sourceSets {
+        val commonMain by getting {
+            dependencies {
+                implementation(libs.ktor.client.core)
+                implementation(libs.ktor.client.content.negotiation)
+                implementation(libs.ktor.serialization.kotlinx.json)
+            }
+        }
+        val jvmMain by getting {
+            dependencies {
+                implementation(libs.ktor.client.cio)
+            }
+        }
+        val iosMain by creating {
+            dependsOn(commonMain)
+            dependencies {
+                implementation(libs.ktor.client.darwin)
+            }
+        }
+        getByName("iosX64Main").dependsOn(iosMain)
+        getByName("iosArm64Main").dependsOn(iosMain)
+        getByName("iosSimulatorArm64Main").dependsOn(iosMain)
+
+        val wasmJsMain by getting {
+            dependencies {
+                // If you need additional dependencies for wasmJs, list them here.
+                // For example, if a Ktor client engine is needed:
+                // implementation("io.ktor:ktor-client-js:<version>")
+            }
+        }
     }
 }

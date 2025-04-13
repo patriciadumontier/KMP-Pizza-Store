@@ -1,7 +1,5 @@
 package org.example.project.api
 
-import com.example.shared.models.PizzaOrder
-import com.example.shared.models.OrderResponse
 import io.ktor.client.HttpClient
 import io.ktor.client.request.*
 import io.ktor.client.request.setBody

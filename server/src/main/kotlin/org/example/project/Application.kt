@@ -36,10 +36,10 @@ object Orders : Table("orders") {
 object DatabaseFactory {
     fun init() {
         val config = HikariConfig().apply {
-            jdbcUrl = "jdbc:postgresql://localhost:5432/pizza_db"  // Change to your database URL.
+            jdbcUrl = "jdbc:postgresql://localhost:5432/motor_repair"
             driverClassName = "org.postgresql.Driver"
-            username = "yourusername"   // Set your PostgreSQL username.
-            password = "yourpassword"   // Set your PostgreSQL password.
+            username = "app_user"   // TODO: Set your PostgreSQL username.
+            password = "securepassword"   // TODO: Set your PostgreSQL password.
             maximumPoolSize = 3
             isAutoCommit = false
             transactionIsolation = "TRANSACTION_REPEATABLE_READ"
