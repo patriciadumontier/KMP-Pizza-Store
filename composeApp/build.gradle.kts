@@ -47,10 +47,17 @@ kotlin {
     }
     
     sourceSets {
-//        androidMain.dependencies {
-//            implementation(compose.preview)
-//            implementation(libs.androidx.activity.compose)
-//        }
+        val androidMain by getting {
+            dependencies {
+                // The activity-compose library provides ComponentActivity and setContent
+                implementation("androidx.activity:activity-compose:1.7.2")
+                // Also add additional Compose libraries if needed, e.g.:
+                implementation(compose.runtime)
+                implementation(compose.foundation)
+                implementation(compose.material)
+                // (Other dependencies can be declared in commonMain as well)
+            }
+        }
         val commonMain by getting {
             dependencies {
                 implementation(compose.runtime)
