@@ -5,9 +5,10 @@ android-minSdk = "24"
 android-targetSdk = "35"
 androidx-activityCompose = "1.10.1"
 androidx-lifecycle = "2.8.4"
-compose-multiplatform = "1.7.3"
+compose-multiplatform = "1.7.8"
+jetbrains-compose = "1.7.3"
 config = "1.4.3"
-exposed = "0.41.1"
+exposed = "0.61.0"
 kotlin = "2.1.20"
 kotlinx-coroutines = "1.10.2"
 ktor = "3.1.2"
@@ -24,6 +25,8 @@ androidx-compose-ui-tooling-preview = { module = "androidx.compose.ui:ui-tooling
 androidx-activity-compose = { module = "androidx.activity:activity-compose", version.ref = "androidx-activityCompose" }
 androidx-lifecycle-viewmodel = { group = "org.jetbrains.androidx.lifecycle", name = "lifecycle-viewmodel", version.ref = "androidx-lifecycle" }
 androidx-lifecycle-runtime-compose = { group = "org.jetbrains.androidx.lifecycle", name = "lifecycle-runtime-compose", version.ref = "androidx-lifecycle" }
+jetbrains-compose-html-core = { module = "org.jetbrains.compose.html:html-core", version.ref = "jetbrains-compose" }
+jetbrains-compose-web-core = { module = "org.jetbrains.compose.web:web-core", version.ref = "jetbrains-compose" }
 jetbrains-exposed-core = { group = "org.jetbrains.exposed", name = "exposed-core", version.ref = "exposed" }
 jetbrains-exposed-jdbc = { group = "org.jetbrains.exposed", name = "exposed-jdbc", version.ref = "exposed" }
 kotlinx-coroutines-swing = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-swing", version.ref = "kotlinx-coroutines" }
@@ -48,7 +51,7 @@ zaxxer-hikaricpl = { module = "com.zaxxer:HikariCP", version.ref = "zaxxer" }
 [plugins]
 androidApplication = { id = "com.android.application", version.ref = "agp" }
 androidLibrary = { id = "com.android.library", version.ref = "agp" }
-composeMultiplatform = { id = "org.jetbrains.compose", version.ref = "compose-multiplatform" }
+composeMultiplatform = { id = "org.jetbrains.compose", version.ref = "jetbrains-compose" }
 composeCompiler = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
 kotlinJvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
 ktor = { id = "io.ktor.plugin", version.ref = "ktor" }

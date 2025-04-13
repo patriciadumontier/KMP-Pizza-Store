@@ -1,4 +1,3 @@
-import org.jetbrains.kotlin.gradle.ExperimentalWasmDsl
 
 plugins {
     alias(libs.plugins.kotlinMultiplatform)
@@ -12,15 +11,13 @@ kotlin {
     iosArm64()
     iosSimulatorArm64()
 
-    @OptIn(ExperimentalWasmDsl::class)
-    wasmJs {
-        browser {
+    js(IR) {
+        browser() {
+            // Optionally, configure webpack:
             commonWebpackConfig {
-                outputFileName = "composeApp.js"
-                // Additional configuration if needed
+                outputFileName = "shared.js"
             }
         }
-        binaries.executable()
     }
 
     sourceSets {
@@ -46,11 +43,9 @@ kotlin {
         getByName("iosArm64Main").dependsOn(iosMain)
         getByName("iosSimulatorArm64Main").dependsOn(iosMain)
 
-        val wasmJsMain by getting {
+        val jsMain by getting {
             dependencies {
-                // If you need additional dependencies for wasmJs, list them here.
-                // For example, if a Ktor client engine is needed:
-                // implementation("io.ktor:ktor-client-js:<version>")
+                implementation(libs.ktor.client.js)
             }
         }
     }
