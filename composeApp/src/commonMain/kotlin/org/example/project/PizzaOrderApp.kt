@@ -6,8 +6,8 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import kotlinx.coroutines.launch
-import org.example.project.api.sendPizzaOrder
-import org.example.project.models.PizzaOrder
+import org.example.project.shared.api.sendPizzaOrder
+import org.example.project.shared.models.PizzaOrder
 
 @Composable
 fun PizzaOrderApp() {

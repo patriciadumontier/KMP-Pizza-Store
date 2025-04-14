@@ -1,6 +1,6 @@
-package org.example.project.models
+package org.example.project.shared.models
 
-import org.example.project.api.PizzaRPC
+import org.example.project.shared.api.PizzaRPC
 
 /**
  * The PizzaService class implements the PizzaRPC interface.

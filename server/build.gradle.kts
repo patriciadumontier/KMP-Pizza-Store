@@ -1,6 +1,7 @@
 plugins {
     alias(libs.plugins.kotlinJvm)
-    alias(libs.plugins.ktor)
+    alias(libs.plugins.pluginSerialization)
+//    alias(libs.plugins.ktor)
     application
 }
 
@@ -23,6 +24,7 @@ dependencies {
     implementation(libs.ktor.server.content.negotiation)
     implementation(libs.postgresql)
     implementation(libs.jetbrains.exposed.core)
+    implementation(libs.jetbrains.exposed.dao)
     implementation(libs.jetbrains.exposed.jdbc)
     implementation(libs.zaxxer.hikaricpl)
     implementation(libs.koin.ktor)

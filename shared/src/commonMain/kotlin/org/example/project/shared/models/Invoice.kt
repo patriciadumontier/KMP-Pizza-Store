@@ -1,4 +1,4 @@
-package org.example.project.models
+package org.example.project.shared.models
 
 import kotlinx.serialization.Serializable
 
@@ -8,8 +8,8 @@ data class Invoice(
     val invoiceDate: String,  // You might use LocalDate in a real app
     val poNumber: String?,
     val customerId: Int,
-    val jobDescription: String?,
-    val invoiceSubtotal: Double?,
-    val invoiceGstAmount: Double?,
-    val invoiceTotal: Double?
+    val jobDescription: String? = null,
+    val invoiceSubtotal: Double? = null,
+    val invoiceGstAmount: Double? = null,
+    val invoiceTotal: Double? = null
 )
