@@ -1,4 +1,4 @@
-package org.example.project
+package org.example.project.shared
 
 class Greeting {
     private val platform = getPlatform()

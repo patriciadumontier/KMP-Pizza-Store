@@ -1,4 +1,4 @@
-package org.example.project.api
+package org.example.project.shared.api
 
 import io.ktor.client.HttpClient
 import io.ktor.client.request.*
@@ -6,8 +6,8 @@ import io.ktor.client.request.setBody
 import io.ktor.client.call.*
 import io.ktor.http.ContentType
 import io.ktor.http.contentType
-import org.example.project.models.OrderResponse
-import org.example.project.models.PizzaOrder
+import org.example.project.shared.models.OrderResponse
+import org.example.project.shared.models.PizzaOrder
 
 /** Declare the expected function for creating an HTTP client. */
 expect fun createHttpClient(): HttpClient

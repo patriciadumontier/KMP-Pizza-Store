@@ -1,5 +1,6 @@
 package org.example.project
 
+import org.example.project.shared.Platform
 import platform.UIKit.UIDevice
 
 class IOSPlatform: Platform {
